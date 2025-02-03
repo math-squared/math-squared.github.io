@@ -1,490 +1,472 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nerfies: Deformable Neural Radiance Fields</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI-Assisted Generation of Difficult Math Questions</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>"> -->
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+        }
+        .publication-title {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            font-size: 2.5rem !important; /* Reduced size with !important flag */
+        }
+        .author-block {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+        }
+        .content-block {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .abstract {
+            font-family: 'Merriweather', serif;
+            font-weight: 300;
+        }
+        .teaser .hero-body {
+            padding-top: 0;
+            padding-bottom: 3rem;
+        }
+        .teaser {
+            font-family: 'DM Sans', sans-serif;
+        }
+        .publication-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .link-block {
+            flex: 0 0 auto;
+        }
+        .content {
+            font-family: 'Merriweather', serif;
+        }
+        .navbar, .footer {
+            font-family: 'DM Sans', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+        }
+        .example-images {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .example-column {
+            width: 24%; /* Adjust this value as needed */
+            margin-bottom: 1rem;
+        }
+        .example-column img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .example-column {
+                width: 48%; /* 2 columns on smaller screens */
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .example-column {
+                width: 100%; /* 1 column on very small screens */
+            }
+        }
+        .limited-width-image {
+            max-width: 400px;
+            margin: 0 auto;
+            display: block;
+        }
+        .tabs.is-boxed a {
+            padding: 0.75rem 1.5rem;
+        }
+        .tabs .icon {
+            margin-right: 0.5rem;
+        }
+        .tab-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        @media screen and (max-width: 768px) {
+            .publication-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            .link-block {
+                width: 100%;
+                max-width: 200px;
+            }
+            .link-block .button {
+                width: 100%;
+            }
+        }
+        
+        /* Add these new styles */
+        .dataTables_wrapper {
+            overflow-x: auto;
+        }
+        
+        table.dataTable {
+            width: 100% !important;
+        }
+        
+        .dataTables_scrollBody {
+            overflow-x: hidden !important;
+            width: 100% !important;
+        }
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
+        /* Adjust tab styles for mobile */
+        @media screen and (max-width: 768px) {
+            .tabs ul {
+                flex-wrap: wrap;
+            }
+            .tabs li {
+                flex-basis: 100%;
+            }
+            .tabs.is-boxed a {
+                border-radius: 0;
+                margin-bottom: 1px;
+            }
+        }
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+        .table-container {
+            overflow-x: auto;
+        }
 
-    gtag('js', new Date());
+        .table {
+            width: 100%;
+            min-width: 600px; /* Ensure minimum width for readability */
+            table-layout: fixed;
+        }
 
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
+        .table th,
+        .table td {
+            padding: 0.5rem;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+        /* Adjust column widths */
+        .table th:nth-child(1),
+        .table td:nth-child(1) {
+            width: 25%;
+        }
+        .table th:nth-child(2),
+        .table td:nth-child(2) {
+            width: 20%;
+        }
+        .table th:nth-child(3),
+        .table td:nth-child(3) {
+            width: 25%;
+        }
+        .table th:nth-child(4),
+        .table td:nth-child(4) {
+            width: 20%;
+        }
+        .table th:nth-child(5),
+        .table td:nth-child(5) {
+            width: 10%;
+        }
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+        /* Add responsive styles */
+        @media screen and (max-width: 768px) {
+            .table th,
+            .table td {
+                font-size: 0.9rem;
+                padding: 0.4rem;
+            }
+        }
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+        @media screen and (max-width: 480px) {
+            .table th,
+            .table td {
+                font-size: 0.8rem;
+                padding: 0.3rem;
+            }
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Add these lines for Lightbox2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
 </head>
 <body>
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://math-squared.github.io/">
+            <span class="icon">
+                <i class="fas fa-home"></i>
+            </span>
         </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
     </div>
-
-  </div>
 </nav>
 
-
 <section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Nerfies: Deformable Neural Radiance Fields</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
-            <span class="author-block">
-              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
-            </span>
-          </div>
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">AI-Assisted Generation of Difficult Questions</h1>
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block">
+                            <a href="https://veds12.github.io">Vedant Shah</a>,
+                        </span>
+                        <span class="author-block">
+                            <a href="">Dingli Yu</a>,
+                        </span>
+                        <span class="author-block">
+                            <a href="">Kaifeng Lyu</a>,
+                        </span>
+                        <span class="author-block">
+                            <a href="">Simon Park</a>,
+                        </span>
+                        <span class="author-block">
+                          <a href="">Jiatong Yu</a>,
+                        </span>
+                        <span class="author-block">
+                          <a href="">Yinghui He</a>,
+                        </span>
+                        <span class="author-block">
+                          <a href="">Nan Rosemary Ke</a>,
+                        </span>
+                        <span class="author-block">
+                          <a href="">Michael Mozer</a>,
+                        </span>
+                        <span class="author-block">
+                          <a href="">Yoshua Bengio</a>,
+                        </span>
+                        <span class="author-block">
+                          <a href="">Sanjeev Arora</a>,
+                        </span>
+                        <span class="author-block">
+                          <a href="">Anirudh Goyal</a>
+                        </span>
+                    </div>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
-          </div>
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block">Mila - Quebec AI Institute</span>
+                    </div>
 
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <!-- Video Link. -->
-              <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
-                </a>
-              </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-              <!-- Dataset Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a>
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <!-- arXiv link -->
+                            <span class="link-block">
+                                <a href="https://arxiv.org/abs/2407.21009" class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="ai ai-arxiv"></i>
+                                    </span>
+                                    <span>arXiv</span>
+                                </a>
+                            </span>
+                            <!-- HuggingFace link -->
+                            <span class="link-block">
+                                <a href="https://huggingface.co/datasets/veds12/math-squared" class="external-link button is-normal is-rounded is-dark">
+                                    <!-- <span class="icon">
+                                        <i class="fab fa-github"></i>
+                                    </span> -->
+                                    <span>🤗 Dataset</span>
+                                </a>
+                            </span>
+                            <!-- GitHub link -->
+                            <span class="link-block">
+                                <a href="https://github.com/veds12/ai_assisted_questions" class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon">
+                                        <i class="fab fa-github"></i>
+                                    </span>
+                                    <span>Code</span>
+                                </a>
+                            </span>
+                            <!-- Copy Citation button -->
+                            <span class="link-block">
+                                <button class="button is-normal is-rounded is-dark" id="copy-citation">
+                                    <span class="icon">
+                                        <i class="fas fa-copy"></i>
+                                    </span>
+                                    <span>BibTeX</span>
+                                </button>
+                            </span>
+                            <!-- Twitter link -->
+                            <span class="link-block">
+                                <a href="https://x.com/prfsanjeevarora/status/1834251312893964407" class="external-link button is-normal is-rounded is-dark">
+                                    <span>🧵 Thread </span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
-      </h2>
+    <div class="container is-max-desktop">
+        <div class="hero-body">
+            <img src="static/images/pipeline_main.png" style="display: block; margin: auto; max-width: 80%; height: auto;", alt="Main pipeline"></image>
+
+            <h2 class="subtitle has-text-left">
+               <strong>AI-assisted question generation</strong>: We propose a principled AI powered human-in-the-loop approach for creating increasingly difficult evaluation benchmarks for mathematical reasoning. 
+                This figure outlines a five-step pipeline for generating high-quality questions. (a) <strong>Skill Pair
+                Validation</strong>: The model ensures the given skills are distinct. (b) <strong>Question Generation</strong>: The model is asked to generate a question requiring
+                both skills. (c) <strong>Attempted Solution</strong> The model is asked to solve the question with a defeatist approach. (d) <strong>Question Validation</strong>: The
+                question is assessed for correctness, rigor, and clarity, etc. (e) <strong>Final Solution</strong>: Valid questions are re-solved using advanced techniques
+                like in-context prompting and majority voting. This is followed by verification of the questions generated using the above AI-only pipeline by human-annotators.
+            </h2>
+        </div>
     </div>
-  </div>
 </section>
-
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 <section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+    <div class="container is-max-desktop content-block">
         <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
-          </p>
-          <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
-          </p>
-          <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
-          </p>
+        <div class="content has-text-justified abstract">
+            <p>
+              Current LLM training positions mathematical reasoning as a core capability. With publicly available sources fully tapped, there is an unmet demand for diverse and challenging mathematics questions. Relying solely on human experts is both time-consuming and costly, while LLM-generated questions often lack the requisite diversity and difficulty.  We present a design framework that combines the strengths of LLMs with a human-in-the-loop approach to generate a diverse array of challenging math questions. Initially, leveraging LLM metacognition skills [Didolkar et al., 2024], a strong LLM is used to extract core "skills" from existing math datasets.  These skills serve as the basis for generating novel and difficult questions by prompting the LLM with random pairs of core skills that must be utilized in the question. The use of two very different skills within each question makes finding such questions an "out of distribution" task for both LLMs and humans. Our pipeline employs LLMs to iteratively generate and refine questions and solutions through multi-turn prompting. Human annotators then verify and further refine the questions, with their efficiency enhanced via further LLM interactions. Applying this pipeline on skills extracted from MATH dataset [Hendrycks et al., 2021] resulted in <strong>MATH<sup>2</sup></strong> - a dataset of higher quality  math questions,
+              as evidenced by:
+              (a) Lower performance of all models on MATH<sup>2</sup> than on MATH
+              (b) Higher performance on MATH when using MATH<sup>2</sup> questions as in-context examples. 
+              Although focused on mathematics, our methodology seems applicable to other domains requiring structured reasoning, and potentially as a component of <em>scalable oversight</em>.
+              where human experts evaluate highly capable AI models by also using AI-assistance.
+              Also of interest is a striking relationship observed between models' performance on the new dataset: the success rate on MATH<sup>2</sup> is the square on MATH. This suggests that successfully solving the question in MATH<sup>2</sup> requires a nontrivial combination of two distinct math skills.
+            </p>
         </div>
-      </div>
-    </div>
-    <!--/ Abstract. -->
 
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <h2 class="title is-3">Results</h2>
+        <div class="content">
+            We create 210 challenging math questions using the pipeline proposed above comprising the <strong>MATH<sup>2</sup></strong> dataset and evaluate 25 open-source and proprietary models spanning a range of parameter counts. Models show consistent drop in performance when evaluated on MATH<sup>2</sup> as compared to MATH, attesting to the higher difficulty of MATH<sup>2</sup> as a result of skill re-combination.
+            <img src="static/images/bar_plot.png" alt="Main bar plot" class="image is-fullwidth">
+            <p class="has-text-centered is-italic">
+                <strong>Comparison of Zero-Shot Performance of Various Models on MATH and new Dataset MATH<sup>2</sup></strong> - This figure illustrates
+                the zero-shot Chain of Thought (CoT) performance of both open-source and proprietary models on two different datasets: MATH and
+                MATH<sup>2</sup> - our generated dataset. Across the board, models demonstrate a lower performance on the generated dataset compared to MATH.
+                Models show consistent drops in performances relative to MATH when evaluated on MATH<sup>2</sup>.
+            </p>
+
+            <h3 class="title is-4">Relative drops in performance as compared to MATH</h3>
+            <div class="columns">
+                <div class="column">
+                    <p>
+                        o1-preview demonstrates the least drop in percentage terms (10.89%) whereas MetaMath-13B shows the highest relative drop (97.33%).
+                        <img src="static/images/percentage_drops.png" alt="Main comparison" style="display: block; margin: auto; max-width: 70%; height: auto;" class="image is-fullwidth">
+                    </p>
+                </div>
+            </div>
+  
+
+            <h3 class="title is-4">Surprising relationship with performance on MATH</h3>
+            <div class="columns">
+                <div class="column">
+                    <p>
+                        We observe that the performance of models on MATH<sup>2</sup> follows, in most of the cases, an approximately perfect quadratic (<em>Y</em> = <em>X<sup>2</sup></em>) relationship with their performance on MATH. This implies that that how well a model generalized to MATH<sup>2</sup> is agnostic to its training procedure. 
+                        We hypothesize the following explanation: Suppose there are <em>N</em> skills and <em>s<sub>i</sub></em> denotes the success rate of the model at correctly applying the i-th skill. Then, its <em>X</em> value should reflect the average of the <em>s<sub>i</sub></em>'s. Furthermore, on a random question using 
+                        the <em>i</em>th and <em>j</em>th skill, the probability that the model correctly answers it should be  <em>s<sub>i</sub>s<sub>j</sub></em>, since it has to successfully apply both skills. 
+                        the <em>i</em>th and <em>j</em>th skill, the probability that the model correctly answers it should be  <em>s<sub>i</sub> s<sub>j</sub></em>, since it has to successfully apply both skills. 
+                        If the questions are created using  pairs of skills chosen randomly and independently, then the <em>Y</em> value will be the average value of  <em>s<sub>i</sub>s<sub>j</sub></em>'s, which by independence will be roughly <em>X<sup>2</sup></em>.
+                        Although, some models do deviate non-trivially from the perfect quadratic relationship such as DeepSeek-R1-Distill-Llama-3-8B (highest positive deviation), o1-preview, Deepseek-R1-Distill-Qwen-32B and Claude-3.5 Sonnet (highest negative)
+                    </p>
+                    <figure class="image">
+                        <img src="static/images/squared_relationship.png" alt="Squared Relationship" style="display: block; margin: auto; max-width: 80%; height: auto;">
+                        <figcaption class="has-text-centered">
+                            Relation between the performance of models on MATH<sup>2</sup> (<em>Y</em>) vs the square of their performances on MATH (<em>X<sup>2</sup></em>). As can
+                            be seen from the plot, <em>Y</em> ≈ <em>X<sup>2</sup></em>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <h3 class="title is-4">MATH<sup>2</sup> questions act as superior in-context examples for solving MATH</h3>
+            <div class="columns">
+                <div class="column">
+                    <p>
+                        The table given below compares the performance of models on MATH under three prompting strategies. <strong>MAmmoTH 4-shot CoT</strong> uses exemplars from the
+                        MAmmoTH (Yue et al., 2023) evaluation suite. <sup>Skill-Based 4-shot CoT</sup> (Didolkar et al., 2024) retrieves exemplars from MATH based on
+                        required skills (identified by GPT-4). <sup>Proposed 4-shot CoT</sup> selects MATH<sup>2</sup> exemplars where at least one skill matches the target question.
+                        Using MATH<sup>2</sup> exemplars improves performance, with gains up to 13.72% over baseline (Llama-3.1-70B-Instruct (Dubey et al., 2024)).
+                    </p>
+                    <figure class="image">
+                        <img src="static/images/icl.png" alt="MATH^2 ICL" class="image is-fullwidth">
+                        <figcaption class="has-text-centered">
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <h3 class="title is-4">Performance on human modified vs un-modified subsets of MATH<sup>2</sup></h3>
+            <div class="columns">
+                <div class="column">
+                    <p>
+                        Models find it more difficult to solve the subset of MATH<sup>2</sup> questions which were modified by human verifiers before making it to the dataset as compared to the questions 
+                        that were taken directly as they were generated by the AI pipeline (i.e. were not modified at all). Infact, the human modified subset is even more difficult than Level-5 MATH, i.e., 
+                        the most difficult level of MATH.
+                    </p>
+                    <figure class="image">
+                        <img src="static/images/mod_vs_unmod.png" alt="MATH^2 ICL" class="image is-fullwidth">
+                        <figcaption class="has-text-centered">
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+
         </div>
-      </div>
     </div>
-    <!--/ Paper video. -->
-  </div>
 </section>
-
 
 <section class="section">
-  <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-
-      <!-- Visual Effects. -->
-      <div class="column">
+    <div class="container is-max-desktop content-block">
+        <h2 class="title is-3">Citation</h2>
         <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
-          <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
-          </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
+            <pre><code>@article{shah2024ai,
+    title={Ai-assisted generation of difficult math questions},
+    author={Shah, Vedant and Yu, Dingli and Lyu, Kaifeng and Park, Simon and Yu, Jiatong and He, Yinghui and Ke, Nan Rosemary and Mozer, Michael and Bengio, Yoshua and Arora, Sanjeev and others},
+    journal={arXiv preprint arXiv:2407.21009},
+    year={2024}
+}
+</code></pre>
         </div>
-      </div>
-      <!--/ Visual Effects. -->
-
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-
-        </div>
-      </div>
     </div>
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
-          </div>
-        </div>
-        <br/>
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <!--/ Re-rendering. -->
-
-      </div>
-    </div>
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Concurrent Work. -->
-
-  </div>
 </section>
-
-
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
-}</code></pre>
-  </div>
-</section>
-
 
 <footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
-          </p>
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Website template adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+            </p>
         </div>
-      </div>
     </div>
-  </div>
 </footer>
+
+<script>
+document.getElementById('copy-citation').addEventListener('click', function() {
+    const citationText = `@article{shah2024ai,
+        title={Ai-assisted generation of difficult math questions},
+        author={Shah, Vedant and Yu, Dingli and Lyu, Kaifeng and Park, Simon and Yu, Jiatong and He, Yinghui and Ke, Nan Rosemary and Mozer, Michael and Bengio, Yoshua and Arora, Sanjeev and others},
+        journal={arXiv preprint arXiv:2407.21009},
+        year={2024}
+    }`;
+    
+    navigator.clipboard.writeText(citationText).then(function() {
+        alert('Citation copied to clipboard!');
+    }, function(err) {
+        console.error('Could not copy text: ', err);
+    });
+});
+</script>
+
 
 </body>
 </html>
